@@ -1,10 +1,12 @@
 import React, { useEffect, useState} from 'react';
 
 import DirectionSelector from './DirectionSelector';
+import Stops from './Stops';
 
 function RouteSelector() {
   //use state to store the routes
   const [routeId, setRouteId] = useState('');
+  const [directionId, setDirectionId] = useState('');
   const [routes, setRoutes] = useState([]);
 
   //also going to need to make api calls to display route options
@@ -26,19 +28,29 @@ function RouteSelector() {
     });
   }
 
+  function updateDirection(directionId){
+    setDirectionId(directionId);
+  }
+
+  function updateRoute(event) {
+    const selectedRouteId = event.target.value;
+    // setDirectionId('');
+    setRouteId(selectedRouteId);
+  }
 
   //load routes from api when component first renders
   useEffect(loadRoutes, []); //add empty array at the end so only calls the one time, onComponentDidMount
   
   return(
     <>
-      <select onChange={event => setRouteId(event.target.value)} value={routeId}>
-      <option value={''} >
-          Select a route
+      <select onChange={updateRoute} value={routeId}>
+        <option value={''} >
+            Select a route
         </option>
         {routes.map(route => <option key={route.route_id} value={route.route_id}>{route.route_label}</option>) }
       </select>
-      {routeId ? <DirectionSelector routeId={routeId}/> : null}
+      {routeId ? <DirectionSelector routeId={routeId} updateDirection={updateDirection} directionId={directionId}/> : null}
+      {routeId && directionId ? <Stops routeId={routeId} directionId={directionId}/> : null}
     </>
   )
 }
