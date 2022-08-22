@@ -1,5 +1,15 @@
 # Next Trip Case Study
 
+• Select a bus route from a list of available routes
+
+• Select a direction for a bus route
+
+• For a given route and direction, display the stops
+
+• Respond reasonably to browser back and forward buttons (for example, implement application routing)
+
+• The "Show My Bus" mapping feature is not expected
+
 ## How to build and run application
 
 ## How to execute provided tests
