@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+import Stops from './Stops';
+
 function DirectionSelector(props) {
 
   const [directions, setDirections] = useState([]);
-  //  const [directionId, setDirectionId] = useState(props.directionId)
+  const [directionId, setDirectionId] = useState('')
 
   const routeId = props.routeId;
   const url = `https://svc.metrotransit.org/nextripv2/directions/${routeId}`;
@@ -26,24 +28,29 @@ function DirectionSelector(props) {
 
   function handleDirectionChange(event) {
     const directionId = event.target.value;
-    props.updateDirection(directionId);
+    setDirectionId(directionId);
+    // props.updateDirection(directionId);
   }
 
   useEffect(loadDirections, [url]);
 
   return(
-    <select onChange={handleDirectionChange}>
-      <option value={''} >
-          Select a direction
-      </option>
-      {directions.map(direction => 
-        {
-          return <option key={direction.direction_id} value={direction.direction_id}>
-                    {direction.direction_name}
-                  </option>
-        })
-      }
-    </select>
+    <>
+      <select onChange={handleDirectionChange}>
+        <option value={''} >
+            Select a direction
+        </option>
+        {directions.map(direction => 
+          {
+            return <option key={direction.direction_id} value={direction.direction_id}>
+                      {direction.direction_name}
+                    </option>
+          })
+        }
+      </select>
+      {props.routeId && directionId ? <Stops routeId={props.routeId} directionId={directionId}/> : null}
+    </>
+    
   )
 }
 

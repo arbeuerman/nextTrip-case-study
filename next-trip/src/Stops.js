@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function Stops(props) {
   const {routeId, directionId} = props;
@@ -22,7 +22,7 @@ function Stops(props) {
     });
   }
 
-  useEffect(loadStops, [url]);
+  useEffect(loadStops);
 
   return(
     <ul>
