@@ -3,20 +3,17 @@ import React, { useState, useEffect } from 'react';
 function DirectionSelector(props) {
 
   const [directions, setDirections] = useState([]);
-  console.log('route: ', props.routeId);
-  const routeId = props.routeId;
+  //  const [directionId, setDirectionId] = useState(props.directionId)
 
+  const routeId = props.routeId;
   const url = `https://svc.metrotransit.org/nextripv2/directions/${routeId}`;
   
   const loadDirections = () => {
     const options = {
       method: 'GET',
-      mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        'Access-Control-Allow-Origin': '*', 
-        "Access-Control-Allow-Headers": "X-Requested-With",
       },
     }
     fetch(url, options)
@@ -27,13 +24,23 @@ function DirectionSelector(props) {
     });
   }
 
+  function handleDirectionChange(event) {
+    const directionId = event.target.value;
+    props.updateDirection(directionId);
+  }
+
   useEffect(loadDirections, [url]);
 
   return(
-    <select>
+    <select onChange={handleDirectionChange}>
+      <option value={''} >
+          Select a direction
+      </option>
       {directions.map(direction => 
         {
-          return <option key={direction.direction_id}>{direction.direction_name}</option>
+          return <option key={direction.direction_id} value={direction.direction_id}>
+                    {direction.direction_name}
+                  </option>
         })
       }
     </select>
