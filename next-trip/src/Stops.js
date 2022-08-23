@@ -22,7 +22,7 @@ function Stops(props) {
     });
   }
 
-  useEffect(loadStops);
+  useEffect(loadStops, [url]);
 
   return(
     <ul>
