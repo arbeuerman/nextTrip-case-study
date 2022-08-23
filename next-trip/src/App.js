@@ -6,8 +6,10 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import RouteSelector from './RouteSelector';
 import Home from './Home';
+import RouteSelector from './RouteSelector';
+import DirectionSelector from './DirectionSelector';
+import Stops from './Stops';
 
 function App() {
   return (
@@ -30,7 +32,11 @@ function App() {
       </header>
         <Routes>
           <Route exact path='/' element={<Home/>} />
-          <Route exact path='/route-selector' element={<RouteSelector/>}/>
+          <Route exact path='/route-selector' element={<RouteSelector/>}>
+            <Route path=':routeId' element={<DirectionSelector/>}>
+              <Route path=':directionId' element={<Stops/>}/>  
+            </Route>  
+          </Route>
         </Routes>
       </Router>
     </div>

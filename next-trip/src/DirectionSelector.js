@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Stops from './Stops';
 
 function DirectionSelector(props) {
 
+  const navigate = useNavigate();
+  const params = useParams();
+  console.log('params: ', params);
+
   const [directions, setDirections] = useState([]);
   const [directionId, setDirectionId] = useState('')
 
-  const routeId = props.routeId;
+  const routeId = params.routeId;
   const url = `https://svc.metrotransit.org/nextripv2/directions/${routeId}`;
   
   const loadDirections = () => {
@@ -29,7 +34,7 @@ function DirectionSelector(props) {
   function handleDirectionChange(event) {
     const directionId = event.target.value;
     setDirectionId(directionId);
-    // props.updateDirection(directionId);
+    navigate(`/route-selector/${params.routeId}/${directionId}`);
   }
 
   useEffect(loadDirections, [url]);
@@ -48,7 +53,7 @@ function DirectionSelector(props) {
           })
         }
       </select>
-      {props.routeId && directionId ? <Stops routeId={props.routeId} directionId={directionId}/> : null}
+      {params.routeId && directionId ? <Stops /> : null}
     </>
     
   )

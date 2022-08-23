@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 
 function Stops(props) {
-  const {routeId, directionId} = props;
+  const params = useParams(); //{routeId, directionId}
   const [stops, setStops] = useState([]);
 
-  const url = `https://svc.metrotransit.org/nextripv2/stops/${routeId}/${directionId}`;
+  const url = `https://svc.metrotransit.org/nextripv2/stops/${params.routeId}/${params.directionId}`;
   
   const loadStops = () => {
     const options = {
