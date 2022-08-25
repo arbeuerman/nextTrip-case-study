@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Stops from './Stops';
+import { getDirections } from '../api';
 
 function DirectionSelector(props) {
 
@@ -8,22 +9,15 @@ function DirectionSelector(props) {
   const [directionId, setDirectionId] = useState('')
 
   const routeId = props.routeId;
-  const url = `https://svc.metrotransit.org/nextripv2/directions/${routeId}`;
   
   const loadDirections = () => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    }
-    fetch(url, options)
-    .then((response) => response.json())
+    getDirections(routeId)
     .then((data) => {
-      console.log('data: ', data);
       setDirections(data);
-    });
+    })
+    .catch((error) => {
+      console.log('error: ', error);
+    })
   }
 
   function handleDirectionChange(event) {
@@ -31,7 +25,7 @@ function DirectionSelector(props) {
     setDirectionId(directionId);
   }
 
-  useEffect(loadDirections, [url]);
+  useEffect(loadDirections, [routeId]);
 
   return(
     <>

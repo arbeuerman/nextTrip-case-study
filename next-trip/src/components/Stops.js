@@ -1,28 +1,20 @@
 import React, {useState, useEffect} from 'react';
 
+import { getStops } from '../api';
+
 function Stops(props) {
   const {routeId, directionId} = props;
   const [stops, setStops] = useState([]);
 
-  const url = `https://svc.metrotransit.org/nextripv2/stops/${routeId}/${directionId}`;
   
   const loadStops = () => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    }
-    fetch(url, options)
-    .then((response) => response.json())
+    getStops(routeId, directionId)
     .then((data) => {
-      console.log('data: ', data);
       setStops(data);
     });
   }
 
-  useEffect(loadStops, [url]);
+  useEffect(loadStops, [routeId, directionId]);
 
   return(
     <ul>

@@ -1,27 +1,23 @@
 import React, { useEffect, useState} from 'react';
 
 import DirectionSelector from './DirectionSelector';
+import { getRoutes } from '../api';
+
 
 function RouteSelector() {
   //use state to store the routes
   const [routeId, setRouteId] = useState('');
   const [routes, setRoutes] = useState([]);
 
-  //also going to need to make api calls to display route options
+  //make api call to display route options
   const loadRoutes = () => {
-    const url = 'https://svc.metrotransit.org/nextripv2/routes';
-    const options = {
-      method: 'GET',
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    }
-    fetch(url, options)
-    .then((response) => response.json())
+    getRoutes()
     .then((data) => {
-      setRoutes(data)
-    });
+      setRoutes(data);
+    })
+    .catch((error) => {
+      console.log('error: ', error);
+    })
   }
 
   function updateRoute(event) {
@@ -34,6 +30,7 @@ function RouteSelector() {
   
   return(
     <>
+    <h1>Where will you go next?</h1>
       <select onChange={updateRoute} value={routeId}>
         <option value={''} >
             Select a route
