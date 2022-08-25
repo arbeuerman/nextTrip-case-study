@@ -29,7 +29,6 @@ function DirectionSelector(props) {
   function handleDirectionChange(event) {
     const directionId = event.target.value;
     setDirectionId(directionId);
-    // props.updateDirection(directionId);
   }
 
   useEffect(loadDirections, [url]);
