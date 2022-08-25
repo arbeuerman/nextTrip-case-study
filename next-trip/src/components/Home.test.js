@@ -7,4 +7,11 @@ describe('Home Component', () => {
     expect(() => { render(<Home/>)}).not.toThrowError();
   });
 
+  it('renders the title correctly', () => {
+    render(<Home/>)
+    const title = screen.getByTestId('home-title');
+    expect(title).toBeInTheDocument();
+    expect(title).toHaveTextContent('Home Page');
+  })
+
 })
