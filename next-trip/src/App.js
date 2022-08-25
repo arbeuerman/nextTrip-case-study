@@ -6,8 +6,9 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import RouteSelector from './RouteSelector';
-import Home from './Home';
+import RouteSelector from './components/RouteSelector';
+import Home from './components/Home';
+// next-trip/src/components/Stops.js
 
 function App() {
   return (
