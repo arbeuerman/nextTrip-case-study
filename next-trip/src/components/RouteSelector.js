@@ -13,7 +13,6 @@ function RouteSelector() {
   const loadRoutes = () => {
     getRoutes()
     .then((data) => {
-      console.log(data);
       setRoutes(data);
     })
     .catch((error) => {
