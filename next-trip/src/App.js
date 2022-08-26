@@ -1,14 +1,13 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import './App.css';
 import RouteSelector from './components/RouteSelector';
 import Home from './components/Home';
-// next-trip/src/components/Stops.js
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
@@ -16,18 +15,7 @@ function App() {
       <Router>
       <header className="App-header">
         Next Trip
-        <ul>
-          <li>
-            <Link to='/'>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to='/route-selector'>
-              Select a route
-            </Link>
-          </li>
-        </ul>
+        <NavBar/>
       </header>
         <Routes>
           <Route exact path='/' element={<Home/>} />

@@ -1,0 +1,24 @@
+.nav-container {
+  position: relative;
+}
+
+.menu-button {
+  position: fixed;
+  top: 29px;
+  left: auto;
+  right: 10px;
+  bottom: auto;
+}
+
+.nav-menu-items {
+  position: relative;
+  margin-right: 55px;
+  display: flex;
+  flex-direction: column;
+  font-size: medium;
+}
+
+.menu-link {
+  text-decoration: none;
+  background-color: none;
+}
